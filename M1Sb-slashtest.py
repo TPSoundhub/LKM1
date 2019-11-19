@@ -37,7 +37,7 @@ t10 = "tekst streng med forwardslash /d efterfulgt af d som i div"
 t11 = "tekst streng med forwardslash /h efterfulgt af h som i hej-ol"   
 t12 = "tekst streng med forwardslash /b efterfulgt af b som i baggrund"
 
-t13 = r"tekst streng med dobbelt backslash \\ efterfulgt af space"          
+t13 = "tekst streng med dobbelt backslash \\ efterfulgt af space"          
 t14 = "tekst streng med dobbelt backslash \\L efterfulgt af L som i LKM1"
 t15 = "tekst streng med dobbelt backslash \\l efterfulgt af l som i lyde"
 t16 = "tekst streng med dobbelt backslash \\d efterfulgt af d som i div"
