@@ -1,5 +1,5 @@
 # M1Se-Filterinput.py - Sample code filtering input from MBs
-# Revison 0.1 03122019, Knud Funch, SoundHub Denmark - LYDkit til undervisning - Region Midtjylland
+# Revison 1.0 03122019, Knud Funch, SoundHub Denmark - LYDkit til undervisning - Region Midtjylland
 #
 # This code is to illustrate filtering of inputs from different/selected Micro:Bits, as this has been a
 # FAQ after introducing the KIT - and has been posted as one of the hidden challenges in previous code
