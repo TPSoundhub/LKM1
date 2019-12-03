@@ -1,4 +1,6 @@
 # M1Sc.py - Find Micro:Bit on serial port
+# Revison 1.1 25112019, Knud Funch, SoundHub Denmark - LYDkit til undervisning - Region Midtjylland
+# - Extra set of port names for MAC
 # Revison 1.0 12112019, Knud Funch, SoundHub Denmark - LYDkit til undervisning - Region Midtjylland
 # 
 # Program to find a serial port with a serial communication device connected (Micro:Bit) either on PC or PI
@@ -25,9 +27,10 @@ test_prt = True                                          # Another good practice
 ports_on_pc = ["COM0","COM1","COM2","COM3","COM4","COM5","COM6","COM7","COM8","COM9"]
 ports_on_pi = ["/dev/ttyACM0","/dev/ttyACM1","/dev/ttyACM2","/dev/ttyACM3","/dev/ttyACM4",
                "/dev/ttyACM5","/dev/ttyACM6","/dev/ttyACM7","/dev/ttyACM8","/dev/ttyACM9"]
-ports_on_mac = ["/dev/tty.usbmodem14102","/dev/tty.usbmodem14202","/dev/tty.usbmodem14302","/dev/tty.usbmodem14402","/dev/tty.usbmodem14502",
+ports_on_mac1 = ["/dev/tty.usbmodem14102","/dev/tty.usbmodem14202","/dev/tty.usbmodem14302","/dev/tty.usbmodem14402","/dev/tty.usbmodem14502",
                 "/dev/tty.usbmodem14602","/dev/tty.usbmodem14702","/dev/tty.usbmodem14702","/dev/tty.usbmodem14802","/dev/tty.usbmodem14902"]
-
+ports_on_mac2 = ["/dev/cu.usbmodem14102","/dev/cu.usbmodem14202","/dev/cu.usbmodem14302","/dev/cu.usbmodem14402","/dev/cu.usbmodem14502",
+                "/dev/cu.usbmodem14602","/dev/cu.usbmodem14702","/dev/cu.usbmodem14702","/dev/cu.usbmodem14802","/dev/cu.usbmodem14902"]
 def find_port(computer):
     port_number = None
 
@@ -36,7 +39,8 @@ def find_port(computer):
             port_ok = True
             if computer == "PC": port_name = ports_on_pc[p]
             elif computer == "PI": port_name = ports_on_pi[p]
-            elif computer == "MAC": port_name = ports_on_mac[p]
+            elif computer == "MAC1": port_name = ports_on_mac1[p]
+            elif computer == "MAC2": port_name = ports_on_mac2[p]
             else: port_name = "unknown"
             ser.port = port_name
             ser.open()
@@ -53,7 +57,8 @@ def find_port(computer):
 port_found = False
 p,n = find_port("PC")
 if p == None: p,n = find_port("PI")                       # did not find on PC if None is returned so then try to find on PI to make it work on both without changing code
-if p == None: p,n = find_port("MAC")                      # did not find on PI if none is returned so then try to find on MAC to make it work on all 3
+if p == None: p,n = find_port("MAC1")                     # did not find on MAC with name 1 (tty) if none is returned so then try to find on MAC with name 2(cu) to make it work on all 3
+if p == None: p,n = find_port("MAC2")                     # did not find on MAC with name 2 if none is returned
 
 if p != None:
     port_found = True
