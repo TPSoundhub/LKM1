@@ -1,4 +1,7 @@
 # M1Se-Filterinput.py - Sample code filtering input from Micro:Bit's
+# Revison 1.1 05122019, Knud Funch, SoundHub Denmark - LYDkit til undervisning - Region Midijylland
+# - added some counters to show how to keep track of how many times an event has happend since program was started
+# 
 # Revison 1.0 03122019, Knud Funch, SoundHub Denmark - LYDkit til undervisning - Region Midtjylland
 #
 # This code is to illustrate filtering of inputs from different/selected Micro:Bits, as this has been a
@@ -94,8 +97,16 @@ current_tilt_state        = None                                   # Set the ini
                                                                    # and when deducing it is not tilted anymore (timeout from reading MB input) then it is set to "None".
 
 relevant_sender_1         = "Knud-3    "                           # Must be 10 characters long as the returned 'who' in function receive_char is 10 char long!
-relevant_sende_2          = "Knud 1    "
+relevant_sender_2         = "Knud 1    "
 
+#
+# Some counters for keeping track of number of times certain event has happend since program was started
+# Initialised to zero
+#
+
+tilts_all_since_start  = 0
+tilts_left_since_start = 0
+Aa_pressed_since_start = 0
 
 #
 # Definition of functions
@@ -114,9 +125,9 @@ def receive_char():
         return None, None
 
 def relevant_event(rc,who):
-    if (who == "Knud-3    ") and (rc in light_events):
+    if (who == relevant_sender_1) and (rc in light_events):
         return rc
-    elif (who == "Knud 1    ") and (rc not in light_events):
+    elif (who == relevant_sender_2) and (rc not in light_events):
         return rc
     else:
         return None
@@ -143,16 +154,24 @@ while True:
                 if event == current_tilt_state:
                     if test_print_2: print("Do repeated tilt stuff if any",who,event)
                 else:
+                    tilts_all_since_start +=1
+                    if event == "V" or event == "v":
+                        tilts_left_since_start += 1                   
                     if test_print_2:
                         print("Do tilt stuff on first tilt event in specifik direction and set tilt state",who,event)
                         print("The code for tilt can then take current light state into accout if you want", current_light_state)
+                        print("No of unique - not repeated - tilts in any direction since programstart:",tilts_all_since_start)
+                        print("No of unique - not repeated - Vv tilts since programstart:",tilts_left_since_start)                        
                     current_tilt_state = event
             elif event in light_events:
                  if test_print_2: print("Do light stuff and remember current light state for use elsewhere",who,event)
                  current_light_state = event
             else:  # Other input than tilt and light
+                if event == "A" or "a":
+                    Aa_pressed_since_start += 1
                 if test_print_2:
                     print("Do stuff on other input than tilt and light",who,event)
                     print("The code for other inputs can then take current light state into accout if you want", current_light_state)
+                    print("No of A and a presses since programstart:",Aa_pressed_since_start)                        
 
     
